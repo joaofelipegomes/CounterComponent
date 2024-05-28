@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test — Additional Items</title>
+</head>
+
+<body>
+  <div name="counter" aria-valuemin="3" aria-valuemax="3">
+    <div name="counterItem">
+      <button type="button" class="counter__btn-decrement" tabindex="0" aria-valuemin="25"
+        aria-label="Reduzir quantidade" disabled>
+        remove
+      </button>
+
+      <div class="counter__div-viewer">0</div>
+
+      <button type="button" class="counter__btn-increment" tabindex="0" aria-valuemax="1000"
+        aria-label="Aumentar quantidade">
+        add
+      </button>
+    </div>
+
+    <div name="counterItem">
+      <button type="button" class="counter__btn-decrement" tabindex="1" aria-valuemin="25"
+        aria-label="Reduzir quantidade" disabled>
+        remove
+      </button>
+
+      <div class="counter__div-viewer">0</div>
+
+      <button type="button" class="counter__btn-increment" tabindex="1" aria-valuemax="1000"
+        aria-label="Aumentar quantidade">
+        add
+      </button>
+    </div>
+
+    <div name="counterItem">
+      <button type="button" class="counter__btn-decrement" tabindex="2" aria-valuemin="25"
+        aria-label="Reduzir quantidade" disabled>
+        remove
+      </button>
+
+      <div class="counter__div-viewer">0</div>
+
+      <button type="button" class="counter__btn-increment" tabindex="2" aria-valuemax="1000"
+        aria-label="Aumentar quantidade">
+        add
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      document.querySelectorAll('div[name="counter"]').forEach(counter => {
+        const valueMax = counter.getAttribute('aria-valuemax')
+        const valueMin = counter.getAttribute('aria-valuemin')
+        const unit = 1
+
+        const buttonDecrement = counter.querySelector('button.counter__btn-decrement')
+        const buttonIncrement = counter.querySelector('button.counter__btn-increment')
+        const counterViewer = counter.querySelector('div.counter__div-viewer')
+
+        const additionals = {
+          valueMax: valueMax,
+          valueMin: valueMin,
+          items: [],
+          async addAdditional(value, target, key) {
+            if (await this.sumValues() + value <= this.valueMax) {
+              this.items.push({ key: key, quantity: parseInt(value) });
+            } else {
+              console.log('Maximum capacity reached. Cannot add more items.')
+            }
+
+            this.buttonActions(target, key)
+          },
+          async removeAdditional(value, target, key) {
+            if (await this.sumValues() - 1 >= 0) {
+              const index = this.items.findIndex(object => object.key === key);
+              if (index !== -1) {
+                this.items.splice(index, 1);
+              }
+            }
+
+            this.buttonActions(target, key)
+          },
+          async buttonActions(target, key) {
+            target.innerHTML = await this.sumKeyValues(key)
+
+            if (await this.sumKeyValues(key) > 0) {
+              target.parentElement.querySelector('button.counter__btn-decrement').removeAttribute('disabled')
+            } else {
+              target.parentElement.querySelector('button.counter__btn-decrement').setAttribute('disabled', true)
+            }
+          },
+          async sumValues() {
+            let totalSum = 0;
+
+            for (let value in this.items) {
+              totalSum += parseInt(this.items[value]['quantity'])
+            }
+
+            return totalSum
+          },
+          async sumKeyValues(key) {
+            let totalSum = 0;
+
+            for (let value in this.items) {
+              if (this.items[value]['key'] == key) {
+                totalSum += this.items[value]['quantity']
+              }
+            }
+
+            return totalSum
+          }
+        }
+
+        counter.querySelectorAll('div[name="counterItem"]').forEach(counterItem => {
+          counterItem.querySelector('button.counter__btn-decrement').addEventListener('click', (event) => {
+            const target = event.target.parentElement.querySelector('div.counter__div-viewer')
+            const index = event.target.getAttribute('tabindex')
+
+            additionals.removeAdditional(unit, target, index)
+          })
+
+          counterItem.querySelector('button.counter__btn-increment').addEventListener('click', (event) => {
+            const target = event.target.parentElement.querySelector('div.counter__div-viewer')
+            const index = event.target.getAttribute('tabindex')
+
+            additionals.addAdditional(unit, target, index)
+          })
+        })
+      });
+    })()
+  </script>
+</body>
+
+</html>

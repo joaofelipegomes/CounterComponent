@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test — Additional Items</title>
+</head>
+
+<body>
+  <div name="counter" aria-valuemin="25" aria-valuemax="1000" aria-current="kg">
+    <button type="button" class="counter__btn-decrement" tabindex="0" aria-valuemin="25" aria-label="Reduzir quantidade"
+      disabled>
+      remove
+    </button>
+
+    <div class="counter__div-viewer">25</div>
+
+    <button type="button" class="counter__btn-increment" tabindex="0" aria-valuemax="1000"
+      aria-label="Aumentar quantidade">
+      add
+    </button>
+  </div>
+
+  <script>
+    (() => {
+      document.querySelectorAll('div[name="counter"]').forEach(counter => {
+        const valueMax = counter.getAttribute('aria-valuemax')
+        const valueMin = counter.getAttribute('aria-valuemin')
+        const unit = (counter.getAttribute('aria-current') == 'un') ? 1 : 50
+
+        const buttonDecrement = counter.querySelector('button.counter__btn-decrement')
+        const buttonIncrement = counter.querySelector('button.counter__btn-increment')
+        const counterViewer = counter.querySelector('div.counter__div-viewer')
+
+        const additionals = {
+          valueMax: valueMax,
+          valueMin: valueMin,
+          items: [parseInt(valueMin)],
+          async addAdditional(value) {
+            if (await this.sumValues() + value <= this.valueMax) {
+              this.items.push(parseInt(value));
+            } else {
+              if ((await this.sumValues() + value) - valueMin <= this.valueMax) {
+                this.items.push(parseInt(this.valueMax - await this.sumValues()));
+              } else {
+                console.log('Maximum capacity reached. Cannot add more items.')
+              }
+            }
+
+            this.buttonActions()
+          },
+          async removeAdditional(value) {
+            if (await this.sumValues() > this.valueMin) {
+              this.items.pop();
+            } else {
+              console.log('Minimum capacity reached. Cannot remove more items.')
+            }
+
+            this.buttonActions()
+          },
+          async buttonActions() {
+            counterViewer.innerHTML = await this.sumValues()
+
+            if (await this.sumValues() >= valueMin) {
+              buttonDecrement.removeAttribute('disabled')
+            } else {
+              buttonDecrement.setAttribute('disabled', true)
+            }
+          },
+          async sumValues() {
+            let totalSum = 0;
+
+            for (let value in this.items) {
+              totalSum += this.items[value]
+            }
+
+            return totalSum
+          }
+        }
+
+        counter.querySelector('button.counter__btn-decrement').addEventListener('click', () => {
+          additionals.removeAdditional(unit)
+        })
+
+        counter.querySelector('button.counter__btn-increment').addEventListener('click', () => {
+          additionals.addAdditional(unit)
+        })
+      });
+    })()
+  </script>
+</body>
+
+</html>
