@@ -25,7 +25,7 @@ This repository contains a JavaScript script that implements a dynamic and inter
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/repository-name.git
+   git clone https://github.com/joaofelipegomes/CounterComponent.git
 2. Open the **items.html** file in a browser to see the counter in action.
 3. **Customize the counters**: Edit the `aria-valuemax`, `aria-valuemin` and `aria-current` attributes in the `div` elements to adjust the maximum, minimum values, and the increment unit as needed.
 
