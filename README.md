@@ -1,4 +1,4 @@
-# Contador Dinâmico
+# Componente Contador
 
 Este repositório contém um script em JavaScript que implementa um contador dinâmico e interativo para uma página web. O contador permite incrementar e decrementar valores dentro de limites definidos, atualizando a interface do usuário em tempo real.
 
