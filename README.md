@@ -1,33 +1,33 @@
-# Componente Contador
+# Counter Component
 
-Este repositório contém um script em JavaScript que implementa um contador dinâmico e interativo para uma página web. O contador permite incrementar e decrementar valores dentro de limites definidos, atualizando a interface do usuário em tempo real.
+This repository contains a JavaScript script that implements a dynamic and interactive counter for a web page. The counter allows you to increment and decrement values within defined limits, updating the user interface in real-time.
 
-## Funcionalidades
+## Features
 
-- **Incremento e Decremento**: Permite aumentar ou diminuir o valor do contador com base em uma unidade definida.
-- **Limites de Valor**: Respeita os valores máximos e mínimos definidos para cada contador.
-- **Atualização Dinâmica**: Atualiza o display do contador em tempo real conforme o valor muda.
-- **Controle de Botões**: Habilita ou desabilita botões de incremento e decremento com base nos valores atuais.
+- **Increment and Decrement**: Allows increasing or decreasing the counter value based on a defined unit.
+- **Value Limits**: Respects the maximum and minimum values defined for each counter.
+- **Dynamic Update**: Updates the counter display in real-time as the value changes.
+- **Button Control**: Enables or disables increment and decrement buttons based on the current values.
 
-## Como Funciona
+## How It Works
 
-1. **Seleção de Elementos**: Seleciona todas as `div` com o atributo `name="counter"` na página.
-2. **Obtenção de Atributos**: Captura os valores máximos (`aria-valuemax`), mínimos (`aria-valuemin`) e a unidade de incremento (`aria-current`).
-3. **Interatividade**: Adiciona eventos de clique aos botões de incremento e decremento para modificar o valor do contador.
-4. **Gerenciamento de Valores**: Utiliza um objeto `additionals` para gerenciar a lista de valores, assegurar os limites e atualizar a interface.
+1. **Element Selection**: Selects all `div` elements with the attribute `name="counter"` on the page.
+2. **Attribute Retrieval**: Captures the maximum (`aria-valuemax`), minimum (`aria-valuemin`), and increment unit (`aria-current`) values.
+3. **Interactivity**: Adds click events to the increment and decrement buttons to modify the counter value.
+4. **Value Management**: Uses an `additionals` object to manage the list of values, ensure limits are respected, and update the interface.
 
-## Estrutura do Projeto
+## Project Structure
 
-- `items.html`: Exemplo de uso do contador em uma página web.
-- `additional-items.html`: Exemplo de uso de vários contadores em uma página web.
+- `items.html`: Example of counter usage on a web page.
+- `additional-items.html`: Example of multiple counters usage on a web page.
 
-## Como Usar
+## How to Use
 
-1. **Clone o repositório**:
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
-2. Abra o arquivo **items.html** em um navegador para ver o contador em ação.
-3. **Personalize os contadores**: Edite os atributos `aria-valuemax`, `aria-valuemin` e `aria-current` nas `div` para ajustar os valores máximos, mínimos e a unidade de incremento conforme necessário.
+   git clone https://github.com/your-username/repository-name.git
+2. Open the **items.html** file in a browser to see the counter in action.
+3. **Customize the counters**: Edit the `aria-valuemax`, `aria-valuemin` and `aria-current` attributes in the `div` elements to adjust the maximum, minimum values, and the increment unit as needed.
 
-## Contribuições
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias e correções.
+## Contributions
+Contributions are welcome! Feel free to open issues or submit pull requests for improvements and fixes.
